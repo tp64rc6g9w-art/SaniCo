@@ -7,24 +7,23 @@ export default function StickyNav() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setVisible(window.scrollY > 500);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setVisible(window.scrollY > 600);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
     <nav
       className={`sticky-bar${visible ? ' visible' : ''}`}
-      id="stickyBar"
-      role="navigation"
-      aria-label="Quick access"
+      aria-label="Primary"
     >
       <div className="sticky-bar-brand">
-        Sani<span>Co</span> Business Solutions
+        Sani<span>Co</span>
       </div>
-      <Link href="#offer" className="btn-sticky">
-        Get Instant Access →
-      </Link>
+      <div className="sticky-bar-right">
+        <div className="sticky-bar-price"><s>$391</s>$97</div>
+        <Link href="#offer" className="btn-sticky">Get Instant Access →</Link>
+      </div>
     </nav>
   );
 }

@@ -8,15 +8,10 @@ interface Props {
   as?: keyof JSX.IntrinsicElements;
   children: React.ReactNode;
   style?: React.CSSProperties;
+  id?: string;
 }
 
-const delayClass: Record<number, string> = {
-  0: 'fade-up',
-  1: 'fade-up fade-up-d1',
-  2: 'fade-up fade-up-d2',
-  3: 'fade-up fade-up-d3',
-  4: 'fade-up fade-up-d4',
-};
+const delayClass = ['', 'd1', 'd2', 'd3', 'd4'];
 
 export default function FadeUp({
   className = '',
@@ -24,17 +19,23 @@ export default function FadeUp({
   as: Tag = 'div',
   children,
   style,
+  id,
 }: Props) {
   const ref = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (!('IntersectionObserver' in window)) { el.classList.add('visible'); return; }
-
+    if (!('IntersectionObserver' in window)) {
+      el.classList.add('visible');
+      return;
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
       },
       { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
     );
@@ -42,8 +43,8 @@ export default function FadeUp({
     return () => observer.disconnect();
   }, []);
 
-  const combined = [delayClass[delay], className].filter(Boolean).join(' ');
+  const combined = ['fade-up', delayClass[delay], className].filter(Boolean).join(' ');
 
   // @ts-expect-error dynamic tag
-  return <Tag ref={ref} className={combined} style={style}>{children}</Tag>;
+  return <Tag ref={ref} className={combined} style={style} id={id}>{children}</Tag>;
 }

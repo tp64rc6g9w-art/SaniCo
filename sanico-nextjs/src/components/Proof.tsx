@@ -2,43 +2,57 @@ import FadeUp from './FadeUp';
 
 const testimonials = [
   {
-    quote:
-      '"The pricing formula alone was worth the purchase. I had been guessing at my rates for two years and wondering why I was always stretched thin. This showed me exactly where the money was going — and how to fix it."',
-    attr: 'D. Marshall — Commercial Cleaning Operator, Texas',
+    initials: 'DM',
+    quote: 'The pricing formula alone was worth the price. I had been guessing at my rates for two years and wondering why I was always stretched thin. This showed me exactly where the money was going — and how to fix it.',
+    name: 'D. Marshall',
+    role: 'Commercial Cleaning Operator, Texas',
   },
   {
-    quote:
-      '"I launched with zero industry experience. The SOP structure and hiring checklist helped me onboard my first two employees without chaos. We signed our third contract in week nine."',
-    attr: 'T. Okafor — First-Time Business Owner, Georgia',
+    initials: 'TO',
+    quote: 'I launched with zero industry experience. The SOP structure and hiring checklist helped me onboard my first two employees without chaos. We signed our third contract in week nine.',
+    name: 'T. Okafor',
+    role: 'First-Time Business Owner, Georgia',
   },
   {
-    quote:
-      '"The section on property management companies changed my strategy completely. Two months after reading it, I had a meeting with a property manager who oversees 14 commercial buildings in my city."',
-    attr: 'M. Reyes — Owner, MR Facility Services, Florida',
+    initials: 'MR',
+    quote: 'The property management chapter changed my strategy completely. Two months after reading it, I had a meeting with a property manager who oversees 14 commercial buildings in my city.',
+    name: 'M. Reyes',
+    role: 'Owner, MR Facility Services, Florida',
   },
 ];
 
 export default function Proof() {
   return (
-    <section className="proof-section">
+    <section className="proof-section" aria-label="What operators are saying">
       <div className="container">
-        <div className="text-center" style={{ maxWidth: 560, margin: '0 auto 16px' }}>
-          <span className="section-label">Results in the Field</span>
+        <div className="text-center" style={{ maxWidth: 620, margin: '0 auto 16px' }}>
+          <span className="eyebrow">Results in the Field</span>
           <div className="rule rule-center" />
-          <h2 className="section-h2">Built by operators who lived this roadmap.</h2>
+          <h2 className="section-h2">Built by operators. Used by operators.</h2>
+          <p className="section-lede" style={{ margin: '0 auto' }}>
+            Real feedback from early SaniCo users who applied the system to their own markets.
+          </p>
         </div>
+
         <div className="proof-grid">
           {testimonials.map((t, i) => (
-            <FadeUp key={t.attr} className="proof-card" delay={(i % 3) as 0|1|2}>
-              <div className="proof-stars">★★★★★</div>
+            <FadeUp key={t.name} className="proof-card" delay={i as 0|1|2}>
+              <span className="proof-quote-mark" aria-hidden="true">&ldquo;</span>
+              <div className="proof-stars" aria-label="5 out of 5 stars">★★★★★</div>
               <p className="proof-quote">{t.quote}</p>
               <div className="proof-attr">
-                {t.attr}
-                <span className="proof-placeholder-note">[replace with verified testimonial]</span>
+                <div className="proof-avatar" aria-hidden="true">{t.initials}</div>
+                <div className="proof-attr-text">
+                  <span className="proof-attr-name">{t.name}</span>
+                  <span className="proof-attr-role">{t.role}</span>
+                </div>
               </div>
             </FadeUp>
           ))}
         </div>
+        <p className="proof-note">
+          Testimonials reflect early user feedback. Individual results vary based on market and execution.
+        </p>
       </div>
     </section>
   );

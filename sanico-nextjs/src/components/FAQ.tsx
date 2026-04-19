@@ -4,65 +4,75 @@ import { useState } from 'react';
 
 const faqs = [
   {
-    q: 'Do I need prior cleaning or business experience to use this guide?',
-    a: 'No. The guide is written from first principles, assuming you are starting without industry background. It walks through legal structure, equipment selection, pricing, hiring, and operations in full detail. Prior business experience is helpful but not required — the guide is designed to fill the knowledge gaps that most new operators face.',
+    q: 'Do I need prior cleaning or business experience to start a commercial cleaning business?',
+    a: 'No. The system is written from first principles — it walks you through legal structure, equipment, pricing, hiring, and operations without assuming any industry background. Most successful operators had no cleaning experience before launching.',
   },
   {
-    q: 'How much startup capital do I actually need?',
-    a: 'The guide covers this in detail. As a solo Phase 1 operator focused on landing your first contract, the realistic startup cost is $500–$1,200 for equipment and supplies, plus $800–$2,400/year for liability insurance, and $50–$500 for LLC formation depending on your state. Most operators begin Phase 1 and fund the expansion to Phase 2 (vehicles, additional equipment) from contract revenue. A full startup budget template is included.',
+    q: 'How much money do I need to start?',
+    a: 'As a solo Phase 1 operator focused on landing your first contract, realistic startup costs are $500–$1,200 for equipment and supplies, $800–$2,400/year for liability insurance, and $50–$500 for LLC formation. Most operators begin Phase 1 and fund Phase 2 (vehicle, additional equipment) from their first contract revenue.',
   },
   {
-    q: 'How long does it realistically take to land the first client?',
-    a: "The guide's 90-day action plan maps to a first contract within 5–6 weeks for operators who execute the client acquisition strategies consistently. Industry data suggests an average of 6–12 weeks from initial outreach to signed contract, with a typical proposal-to-close ratio of around 1 in 8. The cold walk-in strategy and property management relationship approach tend to produce the fastest early results.",
+    q: 'How long does it take to land the first commercial cleaning client?',
+    a: 'Industry data suggests 6–12 weeks from initial outreach to signed contract, with a typical proposal-to-close ratio around 1 in 8. Operators who consistently execute the walk-in and property manager strategies often close their first contract in 5–6 weeks.',
   },
   {
-    q: 'Can I build this business while still working a full-time job?',
-    a: 'Yes — and many operators do exactly this. Commercial cleaning contracts are typically serviced in the evening hours (4 pm–midnight), which allows you to run the business nights and weekends in the early stages. The goal is to reach a point where contract revenue justifies the transition to full-time. The guide specifically addresses the Phase 1 solo operator approach with that timeline in mind.',
+    q: 'Can I run this business part-time while keeping my job?',
+    a: 'Yes. Commercial cleaning contracts are typically serviced in evening hours (4 PM to midnight), which fits around a full-time day job. Many operators build the business on nights and weekends before transitioning full-time once recurring contract revenue justifies it.',
   },
   {
-    q: 'Is this just a PDF, or is there more to it?',
-    a: 'The core guide is a comprehensive PDF — the format that allows you to download, annotate, print, and use on any device. It includes 14 full chapters plus six fillable forms and templates. What makes it more than a standard document is the operational depth: real pricing formulas, specific acquisition scripts, complete SOP structures, and financial planning frameworks you can put into immediate use.',
+    q: 'How much can a commercial cleaning business realistically make?',
+    a: 'Individual results vary, but industry data shows corporate cleaning contracts range from $1,500–$12,000/month per client. A portfolio of 10 contracts averaging $4,000/month generates $40,000 in MRR, with 28–38% net margins after labor, supplies, and overhead. The guide includes the exact pricing formula used to calculate profitable contract rates.',
   },
   {
-    q: 'Do I need to do the cleaning myself, or can I hire staff immediately?',
-    a: 'The guide recommends starting as a solo operator for your first one to three contracts. This allows you to understand the service firsthand, build quality standards, and fund your first hire from contract revenue — rather than taking on payroll before you have stable income. The hiring and onboarding chapter covers exactly when and how to make your first hire, including the specific indicators that signal you are ready.',
+    q: 'Do I have to do the cleaning myself forever?',
+    a: 'No — and the system is built to get you out of the field as fast as possible. You start solo to learn operations and fund your first hire. The hiring chapter covers exactly when to hire, how to screen, and how to onboard crews. By Phase 2, most operators manage rather than clean.',
   },
   {
-    q: 'What kinds of businesses does this guide focus on as clients?',
-    a: 'The guide focuses primarily on five client types: corporate offices, medical facilities, property managers, retail and showrooms, and schools and government buildings. The most accessible entry point for new operators is typically corporate offices and property management companies. Each client type has distinct requirements, average monthly contract values, and service expectations — all covered in detail in the industry chapter.',
+    q: 'Is this just a PDF or is there more?',
+    a: 'The core is a 340+ page PDF with 14 chapters plus six fillable business templates. The value is in the operational depth — real pricing formulas, specific acquisition scripts, SOP structures, and financial planning frameworks you can apply from day one. No fluff, no filler.',
   },
   {
-    q: 'Is the pricing guidance applicable outside major metro areas?',
-    a: 'Yes. The pricing formula is built on your actual cost inputs — your local labor rate, your local overhead, your specific supply costs. It produces a price that is appropriate for your market, not a national average. The guide acknowledges regional variation and instructs you to base your numbers on your specific cost structure, which makes the formula valid in any market.',
+    q: 'What kinds of commercial cleaning clients does the system focus on?',
+    a: 'Five primary categories: corporate offices, medical facilities, property management companies, retail and showrooms, and schools/government buildings. The most accessible entry points for new operators are corporate offices and property managers. Each type has distinct requirements, contract values, and service expectations — all covered in detail.',
+  },
+  {
+    q: 'Does the pricing guidance work outside major metro areas?',
+    a: 'Yes. The pricing formula uses your actual local inputs — your labor rate, your overhead, your supply costs — to produce a price appropriate for your specific market. It is not a national average. Operators in rural, suburban, and mid-sized markets use the same framework successfully.',
+  },
+  {
+    q: 'What if I decide this isn\u2019t for me after buying?',
+    a: 'If you\u2019re not satisfied, contact support within the refund window stated at checkout and you\u2019ll receive a full refund. The system is designed to deliver enough value in the first few chapters that most buyers recognize the fit quickly.',
   },
 ];
 
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const toggle = (i: number) => setOpenIndex(openIndex === i ? null : i);
+  const [open, setOpen] = useState<number | null>(0); // first FAQ open by default
+  const toggle = (i: number) => setOpen(open === i ? null : i);
 
   return (
-    <section className="faq-section">
+    <section className="faq-section" id="faq" aria-label="Frequently asked questions">
       <div className="container">
-        <div className="faq-intro">
-          <span className="section-label">Frequently Asked Questions</span>
+        <div className="faq-head">
+          <span className="eyebrow">Questions &amp; Answers</span>
           <div className="rule" />
           <h2 className="section-h2">Common questions, answered directly.</h2>
+          <p className="section-lede" style={{ marginTop: 12 }}>
+            Before you decide — here&rsquo;s what most people ask about starting a commercial cleaning business and using the SaniCo system.
+          </p>
         </div>
-
         <div className="faq-list">
           {faqs.map((faq, i) => (
-            <div key={faq.q} className={`faq-item${openIndex === i ? ' open' : ''}`}>
+            <div key={faq.q} className={`faq-item${open === i ? ' open' : ''}`}>
               <button
                 className="faq-q"
                 onClick={() => toggle(i)}
-                aria-expanded={openIndex === i}
+                aria-expanded={open === i}
+                aria-controls={`faq-a-${i}`}
               >
                 {faq.q}
                 <span className="faq-q-icon" aria-hidden="true">+</span>
               </button>
-              <div className="faq-a">{faq.a}</div>
+              <div className="faq-a" id={`faq-a-${i}`} role="region">{faq.a}</div>
             </div>
           ))}
         </div>
