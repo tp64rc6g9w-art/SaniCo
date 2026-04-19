@@ -1,7 +1,14 @@
-# SaniCo Business Solutions — Next.js Landing Page
+# SaniCo v3 — Conversion-Optimized Next.js Landing Page
 
-Production-ready Next.js 14 landing page for the Corporate Cleaning Startup Guide.
-App Router · TypeScript · next/font · CSS Modules-free (global CSS) · Zero runtime dependencies beyond React + Next.
+Production-ready Next.js 14 landing page rebuilt from the ground up for paid traffic conversion
+and SEO performance.
+
+**What's new in v3:**
+- Complete information architecture redesigned for cold paid-ad traffic
+- Strengthened SEO foundation (metadata, Product + FAQ JSON-LD schema, semantic HTML)
+- New sections: announcement bar, trust strip, problem/opportunity, revenue ladder, 3-step "how it works," inline CTA, differentiator table, mobile sticky CTA
+- Premium visual system with animated hero dashboard, gold-accent design language, and refined typography
+- Full mobile-first responsive behavior with mobile-specific bottom sticky CTA
 
 ---
 
@@ -9,208 +16,125 @@ App Router · TypeScript · next/font · CSS Modules-free (global CSS) · Zero r
 
 ```
 sanico-nextjs/
-├── .env.example                    ← Copy to .env.local and fill in values
+├── .env.example                 ← Copy to .env.local and set your URLs
 ├── .gitignore
+├── next.config.js               ← Security headers, caching
 ├── next-env.d.ts
-├── next.config.js                  ← Security headers, caching rules
 ├── package.json
 ├── tsconfig.json
-├── public/
-│   └── images/                     ← Add og-image.jpg, favicons here
+├── public/images/               ← Add og-image.jpg + favicons here
 └── src/
     ├── app/
-    │   ├── layout.tsx              ← Root layout: fonts, metadata, global CSS
-    │   └── page.tsx                ← Page: imports all section components
-    ├── components/
-    │   ├── StickyNav.tsx           ← 'use client' — scroll-triggered nav
-    │   ├── Hero.tsx                ← Hero section (server component)
-    │   ├── StatsBand.tsx           ← 4-stat grid band
-    │   ├── Opportunity.tsx         ← Two-column opportunity section
-    │   ├── WrongBusinesses.tsx     ← 2×2 comparison cards (dark bg)
-    │   ├── IncomeLogic.tsx         ← Income milestone rows
-    │   ├── WhatsInside.tsx         ← 9-card chapter grid
-    │   ├── Templates.tsx           ← 6-card templates grid (dark bg)
-    │   ├── NotFluff.tsx            ← 4-card "not fluff" grid (dark bg)
-    │   ├── IdealBuyer.tsx          ← Two-column buyer qualification
-    │   ├── Proof.tsx               ← 3-card testimonial grid
-    │   ├── Offer.tsx               ← Value stack + sticky offer card
-    │   ├── FAQ.tsx                 ← 'use client' — accordion FAQ
-    │   ├── FinalCTA.tsx            ← Closing CTA section
-    │   ├── Footer.tsx              ← Footer
-    │   ├── FadeUp.tsx              ← 'use client' — scroll-animate wrapper
-    │   └── useFadeUp.ts            ← IntersectionObserver hook (optional)
+    │   ├── layout.tsx           ← SEO metadata + JSON-LD schemas
+    │   └── page.tsx             ← 15-section composition
+    ├── components/              ← 20 components (see below)
+    ├── lib/
+    │   └── config.ts            ← CHECKOUT_URL, PRICE, RETAIL_PRICE
     └── styles/
-        └── globals.css             ← All styles (full port from static site)
+        └── globals.css          ← Full design system (1,400 lines)
 ```
+
+### Components
+
+| Component | Purpose |
+|---|---|
+| `AnnounceBar` | Top urgency strip — launch pricing callout |
+| `StickyNav` | Fixed nav that appears after scroll, with brand + CTA |
+| `MobileStickyCTA` | Bottom-anchored CTA for mobile (≤900px) after scroll |
+| `Hero` | Animated business dashboard + persuasive headline |
+| `TrustStrip` | Credibility row with 4 trust signals |
+| `StatsBand` | 4 industry statistics on dark background |
+| `Problem` | Old path vs. new path — repositions buyer mindset |
+| `WhyNow` | 3 data-backed opportunity cards |
+| `Revenue` | Revenue ladder + income math |
+| `Steps` | 3-step "how it works" with inline CTA block |
+| `Included` | 9-chapter breakdown with "practical not theoretical" badge |
+| `Templates` | 6 business templates included |
+| `Differentiator` | Comparison table: generic advice vs. SaniCo |
+| `Buyer` | Yes/no qualifier columns |
+| `Proof` | 3 testimonial cards with avatar initials |
+| `Offer` | Value stack + sticky offer card with save pill |
+| `FAQ` | Accordion with 10 questions (aligned with JSON-LD schema) |
+| `FinalCTA` | Emotionally-anchored closer with large CTA |
+| `Footer` | Structured footer with SEO-friendly anchor links |
+| `FadeUp` | Scroll-triggered animation wrapper |
 
 ---
 
 ## Quick Start
 
-### 1. Install dependencies
-
 ```bash
 cd sanico-nextjs
 npm install
-```
-
-### 2. Configure environment variables
-
-```bash
 cp .env.example .env.local
-```
-
-Open `.env.local` and set:
-
-```env
-NEXT_PUBLIC_CHECKOUT_URL=https://your-actual-checkout-link.com/sanico-guide
-NEXT_PUBLIC_SITE_URL=https://yourdomain.com
-```
-
-### 3. Run development server
-
-```bash
+# Edit .env.local — set NEXT_PUBLIC_CHECKOUT_URL and NEXT_PUBLIC_SITE_URL
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000)
 
-### 4. Build for production
+### Environment variables
 
-```bash
-npm run build
-npm run start
+Set these in `.env.local` (locally) and in your hosting provider's dashboard (production):
+
+```env
+NEXT_PUBLIC_CHECKOUT_URL=https://your-stripe-or-gumroad-link.com
+NEXT_PUBLIC_SITE_URL=https://sanicogroup.com
 ```
 
 ---
 
 ## Before Going Live
 
-### ✅ Checklist
+### Content checklist
+- [ ] Set `NEXT_PUBLIC_CHECKOUT_URL` to your real payment processor link
+- [ ] Set `NEXT_PUBLIC_SITE_URL` to your production domain (used for canonical + OG URLs)
+- [ ] Add `public/images/og-image.jpg` (1200×630) for social sharing
+- [ ] Add favicons to `public/images/` (favicon-16.png, favicon-32.png, apple-touch-icon.png)
+- [ ] Replace the three testimonial cards in `src/components/Proof.tsx` once you have verified reviews
+- [ ] Update the announcement bar text in `src/components/AnnounceBar.tsx` if needed
+- [ ] Review the FAQ in `src/components/FAQ.tsx` — keep it aligned with your actual refund policy
 
-- [ ] Set `NEXT_PUBLIC_CHECKOUT_URL` in `.env.local` (and in your hosting provider's env settings)
-- [ ] Set `NEXT_PUBLIC_SITE_URL` to your production domain
-- [ ] Add images to `public/images/`:
-  - `og-image.jpg` — 1200×630px, used for social sharing previews
-  - `favicon-32.png` — 32×32px browser tab icon
-  - `favicon-16.png` — 16×16px browser tab icon
-  - `apple-touch-icon.png` — 180×180px iOS home screen icon
-- [ ] Update favicon links in `src/app/layout.tsx` (currently pointing to `/images/favicon-*.png`)
-- [ ] Replace the three testimonial placeholder cards in `src/components/Proof.tsx` with real verified testimonials
-- [ ] Update the copyright year and contact details in `src/components/Footer.tsx`
-- [ ] Update domain throughout (currently `sanicogroup.com`) — your `.env.local` handles metadata, but also check `next.config.js` redirects if needed
-
----
-
-## Deploying to Vercel (Recommended — 5 minutes)
-
-Vercel is the natural home for Next.js (same company).
-
-### Option A — Vercel Dashboard (no CLI needed)
-
-1. Push this folder to a GitHub, GitLab, or Bitbucket repo
-2. Go to [vercel.com](https://vercel.com) → **Add New Project** → import your repo
-3. Vercel auto-detects Next.js — no build config needed
-4. Add your environment variables under **Settings → Environment Variables**:
-   - `NEXT_PUBLIC_CHECKOUT_URL`
-   - `NEXT_PUBLIC_SITE_URL`
-5. Add your custom domain under **Settings → Domains**
-6. Deploy — SSL is provisioned automatically
-
-### Option B — Vercel CLI
-
-```bash
-npm i -g vercel
-vercel                    # follows prompts, deploys to preview URL
-vercel --prod             # deploys to production
-```
-
-Set env vars via CLI:
-```bash
-vercel env add NEXT_PUBLIC_CHECKOUT_URL
-vercel env add NEXT_PUBLIC_SITE_URL
-```
+### SEO checklist
+- [ ] Confirm `<title>` and meta description in `src/app/layout.tsx`
+- [ ] Verify JSON-LD schemas render correctly (view source on production)
+- [ ] Submit `sitemap.xml` to Google Search Console once deployed
+- [ ] Set up Google Analytics 4 and Meta Pixel via `next/script` in `layout.tsx`
+- [ ] Test Core Web Vitals with Lighthouse (should score 95+)
 
 ---
+
+## Deploying to Vercel
+
+1. Push to GitHub
+2. Import at [vercel.com](https://vercel.com) → auto-detects Next.js
+3. Add env vars under **Settings → Environment Variables**
+4. Add your custom domain under **Settings → Domains**
+5. SSL is provisioned automatically
 
 ## Deploying to Netlify
 
-1. Push to GitHub
-2. Go to [app.netlify.com](https://app.netlify.com) → **Add new site → Import from Git**
-3. Build settings:
-   - **Build command:** `npm run build`
-   - **Publish directory:** `.next`
-4. Install the [Netlify Next.js plugin](https://github.com/netlify/netlify-plugin-nextjs) — Netlify usually installs it automatically for Next.js projects
-5. Add env vars under **Site settings → Environment variables**
-6. Add your custom domain under **Domain management**
+Build command: `npm run build` — Publish directory: `.next`. The Netlify Next.js plugin is auto-installed.
 
 ---
 
-## Adding Analytics
+## Analytics Setup
 
-Paste your analytics snippet inside `src/app/layout.tsx`, just before `</body>`:
+Add this before `</body>` in `layout.tsx`:
 
-### Google Analytics 4
 ```tsx
-// In layout.tsx, add to the <head> via next/script or metadata
-import Script from 'next/script'
+import Script from 'next/script';
 
-// Inside <body>, before children:
-<Script
-  src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
-  strategy="afterInteractive"
-/>
+// Inside the <body>:
+<Script src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX" strategy="afterInteractive" />
 <Script id="gtag-init" strategy="afterInteractive">
-  {`
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXXXXX');
-  `}
+  {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config','G-XXXXXXXXXX');`}
 </Script>
 ```
-
-### Meta Pixel
-```tsx
-<Script id="fb-pixel" strategy="afterInteractive">
-  {`
-    !function(f,b,e,v,n,t,s){...}(window,document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', 'YOUR_PIXEL_ID');
-    fbq('track', 'PageView');
-  `}
-</Script>
-```
-
----
-
-## Architecture Notes
-
-### Why `'use client'` is scoped tightly
-Only three components use `'use client'`:
-- `StickyNav` — needs `window.scrollY`
-- `FadeUp` — needs `IntersectionObserver`
-- `FAQ` — needs `useState` for accordion
-
-Everything else is a **React Server Component** (RSC) by default, which means:
-- Zero JS shipped for those sections
-- Full static rendering at build time
-- Faster Time to First Byte (TTFB) and Largest Contentful Paint (LCP)
-
-### Fonts
-Fonts are loaded via `next/font/google` in `layout.tsx`, which:
-- Self-hosts the fonts (no external Google Fonts request at runtime)
-- Eliminates layout shift (font CSS is inlined)
-- Passes Core Web Vitals with no additional config
-
-### CSS approach
-All styles live in `src/styles/globals.css` (a direct 1:1 port from the static site).
-This keeps the migration simple and the styles identical to the original design.
-If you later want to add component-level styles, CSS Modules (`.module.css`) work natively in Next.js.
 
 ---
 
 ## Support
 
-SaniCo Business Solutions  
-www.sanicogroup.com · info@sanicogroup.com
+SaniCo Business Solutions · www.sanicogroup.com · info@sanicogroup.com
